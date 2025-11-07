@@ -1,0 +1,6 @@
+Contributing to Payerx402
+
+- Please open issues for features or bugs.
+- Use the branch naming: feat/<short-desc>, fix/<short-desc>, chore/<short-desc>.
+- Include tests for any contract or SDK changes.
+- All changes must be reviewed and pass CI before merge.
