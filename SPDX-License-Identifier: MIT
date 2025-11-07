@@ -1,0 +1,23 @@
+// 
+pragma solidity ^0.8.20;
+
+/// @title Stealth Address Registry (simple)
+/// @notice Registry for mapping public identifiers → on-chain stealth addresses or metadata
+contract StealthAddressRegistry {
+    // owner => identifier (e.g., DID or KYC id) => stealth address
+    mapping(address => mapping(bytes32 => address)) public registry;
+
+    event Registered(address indexed owner, bytes32 indexed idHash, address stealth);
+
+    /// @notice Register a stealth address for an identifier owned by msg.sender
+    function register(bytes32 idHash, address stealth) external {
+        require(stealth != address(0), "Invalid stealth");
+        registry[msg.sender][idHash] = stealth;
+        emit Registered(msg.sender, idHash, stealth);
+    }
+
+    /// @notice Get a stealth address for owner + idHash
+    function get(address owner, bytes32 idHash) external view returns (address) {
+        return registry[owner][idHash];
+    }
+}
